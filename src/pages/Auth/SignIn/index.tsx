@@ -21,7 +21,7 @@ function SignIn() {
       <form onSubmit={handleSubmitForm}>
         <div className='container-input-auth'>
           <input 
-            type="text" 
+            type="email" 
             placeholder='Email'
             className='input-auth'
           />
