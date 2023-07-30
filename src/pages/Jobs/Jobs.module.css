@@ -1,0 +1,51 @@
+.fillter{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.inputSearchMasterContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.inputContainer{
+    display: flex;
+    align-items: center;
+    box-shadow: 1px 1px 2px 0px #919191;
+}
+.inputSearch{
+    width: 300px;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    outline: none;
+    background: #e1e1e1;
+}
+.inputIcon{
+    background: var(--secondary);
+    color: #ffff;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerJobsAndAds{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 35px;
+}
+.jobsCards{
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

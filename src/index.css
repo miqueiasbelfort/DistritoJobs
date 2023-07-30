@@ -2,6 +2,7 @@
 :root {
     --primary: #B30040;
     --primary-dark: #710028;
+    --secondary: #313131;
 }
 
 * {
@@ -9,4 +10,14 @@
     margin: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+}
+
+.btn-primary{
+    background-color: var(--primary);
+    border: none;
+    transition: .3s;
+    border-radius: 1px;
+}
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--primary-dark);
 }

@@ -1,0 +1,27 @@
+.container{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 2px 0px #919191;
+    height: 200px;
+    padding: 10px;
+    transition: .3s;
+}
+.container:hover {
+    box-shadow: 1px 1px 2px 0px #676767;
+}
+.imgCompany{
+    width: 150px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.informationsContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    text-decoration: none;
+    color: #000;
+}
