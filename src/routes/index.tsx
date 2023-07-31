@@ -6,6 +6,7 @@ import SignUp from "../pages/Auth/SignUp";
 import Jobs from "../pages/Jobs";
 import Job from "../pages/Job";
 import Profile from "../pages/Profile";
+import PublishJob from "../pages/PublishJob";
 
 //Componentes
 import Header from "../components/Header";
@@ -21,6 +22,8 @@ function routes() {
             <Route path="/jobs" element={<Jobs/>}/>
             <Route path="/job" element={<Job/>}/>
             <Route path="/profile" element={<Profile/>} />
+
+            <Route path="/" element={<PublishJob/>} />
         </Routes>
     </BrowserRouter>
   )
