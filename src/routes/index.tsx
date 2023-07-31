@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "../pages/Auth/SignIn";
 import SignUp from "../pages/Auth/SignUp";
 import Jobs from "../pages/Jobs";
+import Job from "../pages/Job";
 import Profile from "../pages/Profile";
 
 //Componentes
@@ -16,7 +17,9 @@ function routes() {
         <Routes>
             <Route path="/signIn" element={<SignIn/>}/>
             <Route path="/signUp" element={<SignUp/>} />
+
             <Route path="/jobs" element={<Jobs/>}/>
+            <Route path="/job" element={<Job/>}/>
             <Route path="/profile" element={<Profile/>} />
         </Routes>
     </BrowserRouter>

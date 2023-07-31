@@ -1,0 +1,70 @@
+.container {
+    padding: 20px 50px;
+}
+.titleContainer{
+    display: flex;
+    gap: 20px;
+}
+.company{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+.companyIMG{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+.companyName{
+    font-weight: 300;
+}
+.titleInfoContainer{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 15px;
+}
+.languages{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.infoType{
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.desc{
+    margin: 20px 0;
+}
+
+.beneficius{
+    width: 100%;
+    height: 50px;
+    background: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+.buttonSendCurriculo{
+    margin: 20px 0;
+}
+.buttonSendCurriculo input{
+    display: none;
+}
+.buttonSendCurriculo label {
+    padding: 10px 20px;
+    background: var(--primary);
+    color: #fff;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: .3s;
+}
+.buttonSendCurriculo label:hover {
+    background: var(--primary-dark);
+}
