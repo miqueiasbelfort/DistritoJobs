@@ -49,3 +49,14 @@
     flex-direction: column;
     gap: 20px;
 }
+
+@media screen and (max-width: 768px){
+    .jobsCards{
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    .containerJobsAndAds{
+        align-items: center;
+    }
+}

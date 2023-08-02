@@ -7,3 +7,11 @@
 .btnFillter{
     background-color: red;
 }
+
+@media screen and (max-width: 768px){
+    .container {
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

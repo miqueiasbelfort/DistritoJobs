@@ -32,8 +32,7 @@ function Job() {
             <span>VA / Plano de Saude / Seguro / Auxilo Home Office</span>
         </div>
         <div className={styles.buttonSendCurriculo}>
-            <input type="file" id='curriculo'/>
-            <label htmlFor="curriculo">Cadastrar-se</label>
+            <button>Cadastrar-se</button>
         </div>
     </div>
   )

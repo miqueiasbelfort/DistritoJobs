@@ -100,6 +100,14 @@ function PublishJob() {
             )}
           />
         </div>
+        <div className="mb-3 mt-3">
+          <FloatingLabel
+            controlId="floatingInput"
+            label="Beneficios"
+          >
+            <Form.Control type="text" placeholder="Ex: Avenida Golang, Lote Pascal" />
+          </FloatingLabel>
+        </div>
       </div>
       <Button variant="primary">Publicar Vaga</Button>
     </div>

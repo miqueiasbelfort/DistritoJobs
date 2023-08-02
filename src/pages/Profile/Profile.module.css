@@ -1,7 +1,15 @@
 .container {
     padding: 20px 50px;
 }
-
+.titleContainer{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.titleContainer svg {
+    font-size: 1.3em;
+    cursor: pointer;
+}
 .contaierInfoProfile{
     display: flex;
     align-items: self-start;
@@ -30,4 +38,12 @@
     text-align: center;
     border-radius: 5px;
     font-weight: bold;
+}
+
+@media screen and (max-width: 768px){
+    .contaierInfoProfile{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 }

@@ -5,7 +5,9 @@ import styles from './Header.module.css'
 function Header() {
   return (
     <nav className={styles.container}>
-      <img className={styles.logo} src="../../src/assets/DistritoJOBS-logo.svg" alt="DistritoJobs" />
+      <Link to={"/jobs"}>
+        <img className={styles.logo} src="../../src/assets/DistritoJOBS-logo.svg" alt="DistritoJobs" />
+      </Link>
       <ul className={styles.list}>
         <li>
           <Link to={"/jobs"}>Vagas</Link>

@@ -25,3 +25,13 @@
     text-decoration: none;
     color: #000;
 }
+
+@media screen and (max-width: 768px){
+    .informationsContainer span {
+        font-size: 12px;
+    }
+    .container {
+        width: 95%;
+        height: 350px;
+    }
+}
