@@ -1,15 +1,18 @@
 import React from 'react';
 import styles from './PublishJob.module.css';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 import Col from 'react-bootstrap/Col';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Row from 'react-bootstrap/Row';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import Button from 'react-bootstrap/Button';
+import { langs } from '../../utils/langs';
 
 function PublishJob() {
   return (
     <div className={styles.container}>
-      <h1>Publicar Vagas</h1>
+      <h1>Publicar Vaga</h1>
       <div className={styles.form}>
         <div>
           <FloatingLabel
@@ -64,14 +67,15 @@ function PublishJob() {
             </Col>
           </Row>
         </div>
-        <InputGroup className="mb-3">
-          <Form.Control
-            placeholder="EX: Rua Json, na avenida EcmaScript"
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-          />
-          <InputGroup.Text id="basic-addon2">Endereço da Empresa</InputGroup.Text>
-        </InputGroup>
+        <div>
+          <FloatingLabel
+            controlId="floatingInput"
+            label="Endereço da Empresa"
+            className="mb-3"
+          >
+            <Form.Control type="text" placeholder="Ex: Avenida Golang, Lote Pascal" />
+          </FloatingLabel>
+        </div>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label>Descrição da Vaga</Form.Label>
           <Form.Control as="textarea" rows={3} style={{resize: 'none'}}/>
@@ -80,7 +84,24 @@ function PublishJob() {
           <Form.Label>Atividades da Vaga</Form.Label>
           <Form.Control as="textarea" rows={3} style={{resize: 'none'}}/>
         </Form.Group>
+        <div>
+          <Autocomplete
+            multiple
+            id="tags-standard"
+            options={langs}
+            getOptionLabel={(option) => option.title}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                label="Escolha as principais tecnologias usadas"
+                placeholder="Favorites"
+              />
+            )}
+          />
+        </div>
       </div>
+      <Button variant="primary">Publicar Vaga</Button>
     </div>
   )
 }
