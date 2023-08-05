@@ -14,7 +14,7 @@ export const langs = [
     {title: "Git/Github"},
     {title: "Gitlab"},
     {title: "Docker"},
-    {title: "AWM"},
+    {title: "AWS"},
     {title: "SpringBoot"},
     {title: "NextJS"},
     {title: "React Native"},

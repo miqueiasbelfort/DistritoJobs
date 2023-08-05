@@ -2,14 +2,19 @@ import React, {useState} from 'react';
 import {AiOutlineMail} from 'react-icons/ai'
 import {LiaEyeSlash, LiaEyeSolid} from 'react-icons/lia'
 import { Link } from 'react-router-dom';
+import {loginUser} from '../../../firebase/auth';
 import '../AuthStyles.css' 
 
 function SignIn() {
 
   const [passwordType, setPasswordType] = useState(false)
+  const [email, setEmail] = useState("");
+  const [passowrd, setPassword] = useState("");
 
-  const handleSubmitForm = (event: React.FormEvent) => {
+  const handleSubmitForm = async (event: React.FormEvent) => {
     event.preventDefault();
+    const user = await loginUser(email, passowrd);
+    console.log(user?.uid);
   } 
 
   return (
@@ -24,6 +29,8 @@ function SignIn() {
             type="email" 
             placeholder='Email'
             className='input-auth'
+            value={email}
+            onChange={e => setEmail(e.target.value)}
           />
           <div className='input-container-icon-auth'>
             <AiOutlineMail/>
@@ -34,6 +41,8 @@ function SignIn() {
             type={passwordType ? 'text' : 'password'}
             placeholder='Senha'
             className='input-auth'
+            value={passowrd}
+            onChange={e => setPassword(e.target.value)}
           />
           <div className={`input-container-icon-auth password-auth ${passwordType && 'passowrd-color-active'}`} onClick={() => setPasswordType(!passwordType)}>
             {passwordType ? <LiaEyeSolid/> : <LiaEyeSlash/>}

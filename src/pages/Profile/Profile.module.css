@@ -7,8 +7,12 @@
     gap: 20px;
 }
 .titleContainer svg {
-    font-size: 1.3em;
+    font-size: 1.5em;
     cursor: pointer;
+    transition: .3s;
+}
+.titleContainer svg:hover{
+    color: var(--primary);
 }
 .contaierInfoProfile{
     display: flex;
@@ -38,6 +42,22 @@
     text-align: center;
     border-radius: 5px;
     font-weight: bold;
+}
+
+.fileModal{
+    display: none;
+}
+.btnFile{
+    padding: 10px 20px;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+    text-align: center;
+}
+.btnFile:hover, .btnFile:focus {
+    background-color: var(--ligth);
 }
 
 @media screen and (max-width: 768px){

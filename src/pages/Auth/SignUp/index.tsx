@@ -2,15 +2,27 @@ import React, {useState} from 'react';
 import {AiOutlineMail} from 'react-icons/ai'
 import {LiaEyeSlash, LiaEyeSolid} from 'react-icons/lia'
 import { Link } from 'react-router-dom';
+import { createUser } from '../../../firebase/auth';
 import '../AuthStyles.css' 
 
 function SignUp() {
 
   const [passwordType, setPasswordType] = useState(false)
   const [passwordConfirType, setPasswordConfirType] = useState(false);
+  
+  const [email, setEmail] = useState("");
+  const [passowrd, setPassword] = useState("");
+  const [secondPassword, setSecondPasswor] = useState("");
+  const [isCompanay, setIsCompany] = useState(false);
 
-  const handleSubmitForm = (event: React.FormEvent) => {
+  const handleSubmitForm = async (event: React.FormEvent) => {
     event.preventDefault();
+    const user = await createUser(email, passowrd, secondPassword, isCompanay);
+    setEmail("");
+    setPassword("");
+    setSecondPasswor("");
+    setIsCompany(false);
+    console.log(user?.uid);
   } 
 
   return (
@@ -25,6 +37,8 @@ function SignUp() {
             type="email" 
             placeholder='Email'
             className='input-auth'
+            value={email}
+            onChange={e => setEmail(e.target.value)}
           />
           <div className='input-container-icon-auth'>
             <AiOutlineMail/>
@@ -35,6 +49,8 @@ function SignUp() {
             type={passwordType ? 'text' : 'password'}
             placeholder='Senha'
             className='input-auth'
+            value={passowrd}
+            onChange={e => setPassword(e.target.value)}
           />
           <div className={`input-container-icon-auth password-auth ${passwordType && 'passowrd-color-active'}`} onClick={() => setPasswordType(!passwordType)}>
             {passwordType ? <LiaEyeSolid/> : <LiaEyeSlash/>}
@@ -45,13 +61,15 @@ function SignUp() {
             type={passwordConfirType ? 'text' : 'password'}
             placeholder='Confirmar Senha'
             className='input-auth'
+            value={secondPassword}
+            onChange={e => setSecondPasswor(e.target.value)}
           />
           <div className={`input-container-icon-auth password-auth ${passwordConfirType && 'passowrd-color-active'}`} onClick={() => setPasswordConfirType(!passwordConfirType)}>
             {passwordConfirType ? <LiaEyeSolid/> : <LiaEyeSlash/>}
           </div>
         </div>
         <div className='input-checkbox-save-login-auth'>
-          <input type="checkbox" id="save-login"/>
+          <input type="checkbox" id="save-login" onChange={e => setIsCompany(e.target.checked)} value={isCompanay.toString()}/>
           <label htmlFor="save-login">Sou Empresa!</label>
         </div>
         <div className='dont-have-acount-or-have'>
