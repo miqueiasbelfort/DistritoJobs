@@ -3,12 +3,10 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "fir
 import {addUserInDataBase} from './user'
 
 export const createUser = async (email: string, password: string, secondPassword: string, isCompany: boolean) => {
-    
     if(password !== secondPassword){
         console.log("Senhas incorretas!");
         return;
     }
-
     const user = createUserWithEmailAndPassword(auth, email, password).then(
         (userCredentials) => {
             addUserInDataBase(email, userCredentials.user.uid, isCompany);
@@ -18,7 +16,6 @@ export const createUser = async (email: string, password: string, secondPassword
         const errorMessage = err.message;
         console.log(errorMessage);
     })
-
     return user;
 };
 

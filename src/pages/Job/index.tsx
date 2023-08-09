@@ -1,9 +1,28 @@
-import React from 'react';
+import {useEffect, useState} from 'react';
 import styles from './Job.module.css';
 import Lang from '../../components/Langs';
+import {getJobById} from '../../firebase/jobs';
+import { useParams } from 'react-router-dom';
+import {transformMoney} from '../../utils/money'
 
 function Job() {
-  return (
+
+    const {id} = useParams() as { id: string };
+
+    const [job, setJob] = useState<any>([]);
+    const [langs, setLangs] = useState([])
+    const [salary, setSalary] = useState<number>(0)
+
+    useEffect(() => {
+        (async function() {
+            const objectJob = await getJobById(id);
+            setLangs(objectJob.langsJob);
+            setSalary(objectJob.salary);
+            setJob(objectJob);
+        })()
+    }, [])
+
+    return (
     <div className={styles.container}>
         <div className={styles.titleContainer}>
             <div className={styles.company}>
@@ -11,25 +30,27 @@ function Job() {
                 <h3 className={styles.companyName}>X Corp</h3>
             </div>
             <div className={styles.titleInfoContainer}>
-                <h2>Estagio em Engenharia de Software C#</h2>
+                <h2>{job?.title}</h2>
                 <div className={styles.languages}>
-                    <Lang lang='C#'/>
-                    <Lang lang='React'/>
-                    <Lang lang='Docker'/>
+                    {
+                        langs.map((item: string, i: number) => (
+                            <Lang key={i} lang={item}/>
+                        ))
+                    }
                 </div>
-                <span className={styles.infoType}>X Corp / Remoto / CLT / Junior </span>
+                <span className={styles.infoType}>X Corp / {job?.time} / {transformMoney(salary)} / {job?.contract} </span>
             </div>
         </div>
         <div className={styles.desc}>
             <h3>Descrição:</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis ad nostrum voluptatibus hic error ratione mollitia itaque explicabo veritatis aliquam dolor illo nisi numquam excepturi autem, ut eaque molestiae maxime. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt amet dolorem ab maiores eos, voluptatum laudantium. Eveniet error assumenda nihil! Autem cum placeat, rerum et explicabo est minus quasi laboriosam?</p>
+            <p>{job?.descJob}</p>
         </div>
         <div className={styles.desc}>
             <h3>Atividades:</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis ad nostrum voluptatibus hic error ratione mollitia itaque explicabo veritatis aliquam dolor illo nisi numquam excepturi autem, ut eaque molestiae maxime. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt amet dolorem ab maiores eos, voluptatum laudantium. Eveniet error assumenda nihil! Autem cum placeat, rerum et explicabo est minus quasi laboriosam?</p>
+            <p>{job?.activityJob}</p>
         </div>
         <div className={styles.beneficius}>
-            <span>VA / Plano de Saude / Seguro / Auxilo Home Office</span>
+            <span>{job?.benefits}</span>
         </div>
         <div className={styles.buttonSendCurriculo}>
             <button>Cadastrar-se</button>

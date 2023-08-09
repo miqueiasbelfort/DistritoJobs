@@ -5,6 +5,7 @@ import {BiSearch} from 'react-icons/bi'
 import Ads from '../../components/Ads';
 import JobCard from '../../components/JobCard';
 import {getAllJobs, JobsList} from '../../firebase/jobs';
+import {transformMoney} from '../../utils/money'
 
 function Jobs() {
 
@@ -39,9 +40,10 @@ function Jobs() {
             {
               jobs.map(item => (
                 <JobCard
+                  id={item.id}
                   title={item.jobs.datas?.title}
                   details={item.jobs.datas?.descJob}
-                  desc={`${item.jobs.datas?.time} / Salário: R$ ${item.jobs.datas?.salary} / ${item.jobs.datas?.contract}`}
+                  desc={`${item.jobs.datas?.time} / Salário: R$ ${transformMoney(item.jobs.datas?.salary)} / ${item.jobs.datas?.contract}`}
                   key={item.id}
                 />
               ))

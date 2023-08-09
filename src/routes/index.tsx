@@ -20,7 +20,7 @@ function routes() {
             <Route path="/signUp" element={<SignUp/>} />
 
             <Route path="/jobs" element={<Jobs/>}/>
-            <Route path="/job" element={<Job/>}/>
+            <Route path="/job/:id" element={<Job/>}/>
             <Route path="/profile" element={<Profile/>} />
 
             <Route path="/publish-jobs" element={<PublishJob/>} />
