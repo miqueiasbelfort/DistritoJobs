@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useContext } from 'react';
 import styles from './Profile.module.css';
 import {GrFormEdit} from 'react-icons/gr'
 import Tooltip from '@mui/material/Tooltip';
@@ -6,10 +6,32 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Form from 'react-bootstrap/Form';
 import Button from '@mui/material/Button';
+import {editUser} from '../../firebase/user';
+import { AppContext } from '../../context/context';
 
 function Profile() {
 
+    const {userId, email, isCompany} = useContext(AppContext);
+
     const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false);
+    
+    const [fullName, setFullName] = useState("");
+    const [aboutMe, setAboutMe] = useState("");
+    const [course, setCourse] = useState("");
+    const [university, setUnivesity] = useState("");
+
+    const handleEditProfile = async () => {
+        const objetctProfile = {
+            email,
+            userID: userId,
+            isCompany,
+            fullName,
+            aboutMe,
+            course,
+            university
+        }
+        editUser(objetctProfile, "BD3kAmZryMGkQG5MKmDl");
+    }
 
   return (
     <>
@@ -19,7 +41,7 @@ function Profile() {
                 <img className={styles.imgProfile} src="https://miqueiasbelfort.netlify.app/assets/me.b1ced1ca.jpg" alt="Profile" />
                 <div className={styles.infoProfile}>
                     <div className={styles.titleContainer}>
-                        <span className={styles.title}>Miqueias Kawã Sousa Belfort</span>
+                        <span className={styles.title}>{userId}</span>
                         <Tooltip title="Editar Perfil">
                             <GrFormEdit onClick={() => setOpenEditProfileModal(true)}/>
                         </Tooltip>
@@ -57,25 +79,25 @@ function Profile() {
                 <label className={styles.btnFile} htmlFor="btn-file">Adicionar Foto de Perfil</label>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Nome Completo</Form.Label>
-                    <Form.Control type="email" placeholder="Anna Catarina" />
+                    <Form.Control type="email" placeholder="Anna Catarina" onChange={e => setFullName(e.target.value)}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Form.Label>Descrição sobre você</Form.Label>
-                    <Form.Control as="textarea" rows={3}  style={{resize: 'none'}}/>
+                    <Form.Control as="textarea" rows={3}  style={{resize: 'none'}} onChange={e => setAboutMe(e.target.value)}/>
                 </Form.Group>
-                <Form.Select aria-label="Default select example">
+                <Form.Select aria-label="Default select example" onChange={e => setCourse(e.target.value)}>
                     <option>Qual curso esta fazendo?</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="Engenharia de Software">Engenharia de Software</option>
+                    <option value="Ciência da Computação">Ciência da Computação</option>
+                    <option value="ADS">ADS</option>
                 </Form.Select>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Nome da Universidade</Form.Label>
-                    <Form.Control type="email" placeholder="UNB" />
+                    <Form.Control type="email" placeholder="UNB" onChange={e => setUnivesity(e.target.value)}/>
                 </Form.Group>
                 <input className={styles.fileModal} type="file" id="btn-file" />
                 <label className={styles.btnFile} htmlFor="btn-file">Adicionar Curriculo</label>
-                <Button variant="outlined">Confirmar & Editar</Button>
+                <Button variant="outlined" onClick={handleEditProfile}>Confirmar & Editar</Button>
             </Box>
         </Modal>
 

@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AppProvider } from "../context/context";
 
 //Pages
 import SignIn from "../pages/Auth/SignIn";
@@ -14,17 +15,19 @@ import Header from "../components/Header";
 function routes() {
   return (
     <BrowserRouter>
-        <Header/>
-        <Routes>
-            <Route path="/signIn" element={<SignIn/>}/>
-            <Route path="/signUp" element={<SignUp/>} />
+      <AppProvider>
+          <Header/>
+          <Routes>
+              <Route path="/signIn" element={<SignIn/>}/>
+              <Route path="/signUp" element={<SignUp/>} />
 
-            <Route path="/jobs" element={<Jobs/>}/>
-            <Route path="/job/:id" element={<Job/>}/>
-            <Route path="/profile" element={<Profile/>} />
+              <Route path="/jobs" element={<Jobs/>}/>
+              <Route path="/job/:id" element={<Job/>}/>
+              <Route path="/profile" element={<Profile/>} />
 
-            <Route path="/publish-jobs" element={<PublishJob/>} />
-        </Routes>
+              <Route path="/publish-jobs" element={<PublishJob/>} />
+          </Routes>
+        </AppProvider>
     </BrowserRouter>
   )
 }

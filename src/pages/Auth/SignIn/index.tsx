@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {AiOutlineMail} from 'react-icons/ai'
 import {LiaEyeSlash, LiaEyeSolid} from 'react-icons/lia'
 import { Link } from 'react-router-dom';
 import {loginUser} from '../../../firebase/auth';
+import { AppContext } from '../../../context/context';
 import '../AuthStyles.css' 
 
 function SignIn() {
+
+  const {setUserId, setEmail: setEmailContext} = useContext(AppContext);
 
   const [passwordType, setPasswordType] = useState(false)
   const [email, setEmail] = useState("");
@@ -14,7 +17,10 @@ function SignIn() {
   const handleSubmitForm = async (event: React.FormEvent) => {
     event.preventDefault();
     const user = await loginUser(email, passowrd);
-    console.log(user?.uid);
+    
+    //Context
+    setUserId(`${user?.uid}`)
+    setEmailContext(email);
   } 
 
   return (

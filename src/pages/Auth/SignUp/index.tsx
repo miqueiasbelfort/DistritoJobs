@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {AiOutlineMail} from 'react-icons/ai'
 import {LiaEyeSlash, LiaEyeSolid} from 'react-icons/lia'
 import { Link } from 'react-router-dom';
 import { createUser } from '../../../firebase/auth';
+import { AppContext } from '../../../context/context';
 import '../AuthStyles.css' 
 
 function SignUp() {
+
+  const {setEmail: setEmailContext, setUserId, setIsCompany: setIsCompanyContext} = useContext(AppContext);
 
   const [passwordType, setPasswordType] = useState(false)
   const [passwordConfirType, setPasswordConfirType] = useState(false);
@@ -22,6 +25,11 @@ function SignUp() {
     setPassword("");
     setSecondPasswor("");
     setIsCompany(false);
+
+    //Context
+    setEmailContext(email)
+    setUserId(`${user?.uid}`);
+    setIsCompanyContext(isCompanay);
     console.log(user?.uid);
   } 
 
