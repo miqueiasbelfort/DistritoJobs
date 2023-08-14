@@ -1,5 +1,6 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AppProvider } from "../context/context";
+import { useContext } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AppContext } from "../context/context";
 
 //Pages
 import SignIn from "../pages/Auth/SignIn";
@@ -13,21 +14,26 @@ import PublishJob from "../pages/PublishJob";
 import Header from "../components/Header";
 
 function routes() {
+
+  const {isLogged} = useContext(AppContext);
+
+  console.log(`esta logado: ${isLogged}`)
+
   return (
     <BrowserRouter>
-      <AppProvider>
-          <Header/>
+          {
+            isLogged && <Header/> 
+          }
           <Routes>
               <Route path="/signIn" element={<SignIn/>}/>
               <Route path="/signUp" element={<SignUp/>} />
 
-              <Route path="/jobs" element={<Jobs/>}/>
-              <Route path="/job/:id" element={<Job/>}/>
-              <Route path="/profile" element={<Profile/>} />
+              <Route path="/jobs" element={isLogged ? <Jobs/> : <Navigate to={"/signIn"}/>}/>
+              <Route path="/job/:id" element={isLogged ? <Job/> : <Navigate to={"/signIn"}/>}/>
+              <Route path="/profile" element={isLogged ? <Profile/> : <Navigate to={"/signIn"}/>} />
 
-              <Route path="/publish-jobs" element={<PublishJob/>} />
+              <Route path="/publish-jobs" element={isLogged ? <PublishJob/> : <Navigate to={"/signIn"}/>} />
           </Routes>
-        </AppProvider>
     </BrowserRouter>
   )
 }

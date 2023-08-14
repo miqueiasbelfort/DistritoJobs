@@ -1,5 +1,5 @@
 import {db} from './firebase';
-import { collection, addDoc, setDoc, doc, getDoc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc, getDoc, getDocs, query, where, DocumentData } from "firebase/firestore";
 
 
 export const addUserInDataBase = async (email: string, user: string, isCompany: boolean) => {
@@ -48,13 +48,37 @@ export const editUser = async (data: Props, id: string) => {
 
 export const getUserByID = async (id: string) => {
     try {
+
         const docRef = doc(db, "users", id);
         const docSnap = await getDoc(docRef);
+
         if(docSnap.exists()){
-            return docSnap.data().datas;
+            return docSnap.data();
         } else {
             return {};
         }
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const getUserByIDInDatabase = async (userID: string) => {
+    try {
+
+        const q = query(
+            collection(db, 'users'),
+            where('userID', '==', userID),
+        );
+        const querySnapshot = await getDocs(q);
+
+        let id;
+
+        querySnapshot.forEach(doc => {
+           id = doc.id;
+        });
+
+        return id;
+
     } catch (error) {
         throw error;
     }

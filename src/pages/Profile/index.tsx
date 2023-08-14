@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import styles from './Profile.module.css';
 import {GrFormEdit} from 'react-icons/gr'
 import Tooltip from '@mui/material/Tooltip';
@@ -6,14 +6,17 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Form from 'react-bootstrap/Form';
 import Button from '@mui/material/Button';
-import {editUser} from '../../firebase/user';
+import {editUser, getUserByID} from '../../firebase/user';
 import { AppContext } from '../../context/context';
+import { DocumentData } from 'firebase/firestore';
+
 
 function Profile() {
 
-    const {userId, email, isCompany} = useContext(AppContext);
+    const {userId, email, isCompany, uniqUserId} = useContext(AppContext);
 
     const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false);
+    const [user, setUser] = useState<DocumentData>({});
     
     const [fullName, setFullName] = useState("");
     const [aboutMe, setAboutMe] = useState("");
@@ -30,7 +33,16 @@ function Profile() {
             course,
             university
         }
-        editUser(objetctProfile, "BD3kAmZryMGkQG5MKmDl");
+        editUser(objetctProfile, uniqUserId);
+    }
+
+    useEffect(() => {
+        get();
+    }, [])
+
+    const get = async () => {
+        const userData = await getUserByID(`BD3kAmZryMGkQG5MKmDl`);
+        setUser(userData);
     }
 
   return (
@@ -41,14 +53,14 @@ function Profile() {
                 <img className={styles.imgProfile} src="https://miqueiasbelfort.netlify.app/assets/me.b1ced1ca.jpg" alt="Profile" />
                 <div className={styles.infoProfile}>
                     <div className={styles.titleContainer}>
-                        <span className={styles.title}>{userId}</span>
+                        <span className={styles.title}>{user?.name}</span>
                         <Tooltip title="Editar Perfil">
                             <GrFormEdit onClick={() => setOpenEditProfileModal(true)}/>
                         </Tooltip>
                     </div>
-                    <span className={styles.desc}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem perspiciatis hic velit soluta dolores quae qui vero, eius sapiente, explicabo iusto eveniet unde nobis! Neque quidem enim minus officiis ipsam.</span>
+                    <span className={styles.desc}>{user?.aboutMe}</span>
                     <div className={styles.containerButton}>
-                        <span>Engenharia de Software - IESB - Cursando</span>
+                        <span>{user?.course} - {user?.university} - {user?.courseStage}</span>
                     </div>
                 </div>
             </div>

@@ -9,6 +9,8 @@ export interface AppContextType {
     setIsCompany: Dispatch<SetStateAction<boolean>>;
     uniqUserId: string,
     setUniqUserId: Dispatch<SetStateAction<string>>;
+    isLogged: boolean,
+    setIsLogged:  Dispatch<SetStateAction<boolean>>;
 }
 
 export const AppContext = createContext<AppContextType>({
@@ -19,7 +21,9 @@ export const AppContext = createContext<AppContextType>({
     isCompany: false,
     setIsCompany: () => {},
     uniqUserId: "",
-    setUniqUserId: () => {}
+    setUniqUserId: () => {},
+    isLogged: false,
+    setIsLogged: () => {}
 });
 
 export const AppProvider = ({children}: {children: ReactNode}) => {
@@ -28,6 +32,7 @@ export const AppProvider = ({children}: {children: ReactNode}) => {
     const [email, setEmail] = useState<string>("");
     const [uniqUserId, setUniqUserId] = useState("");
     const [isCompany, setIsCompany] = useState<boolean>(false);
+    const [isLogged, setIsLogged] = useState<boolean>(false);
 
     const contextValue: AppContextType = {
         userId,
@@ -37,7 +42,9 @@ export const AppProvider = ({children}: {children: ReactNode}) => {
         isCompany,
         setIsCompany,
         uniqUserId,
-        setUniqUserId
+        setUniqUserId,
+        isLogged,
+        setIsLogged
     };
 
     return (
