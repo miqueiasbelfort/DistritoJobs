@@ -1,36 +1,13 @@
-.fillter{
-    width: 100%;
+
+.header {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 20px 0;
+    gap: 20px;
 }
 
-.inputSearchMasterContainer{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-.inputContainer{
-    display: flex;
-    align-items: center;
-    box-shadow: 1px 1px 2px 0px #919191;
-}
-.inputSearch{
-    width: 300px;
-    height: 40px;
-    padding: 10px;
-    border: none;
-    outline: none;
-    background: #e1e1e1;
-}
-.inputIcon{
-    background: var(--secondary);
-    color: #ffff;
-    height: 40px;
-    width: 40px;
+.fillter{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,6 +28,10 @@
 }
 
 @media screen and (max-width: 768px){
+    .header{
+        flex-direction: column;
+        padding: 0 10px;
+    }
     .jobsCards{
         width: 100%;
         align-items: center;

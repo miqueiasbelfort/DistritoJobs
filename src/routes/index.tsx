@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AppContext } from "../context/context";
 
@@ -16,23 +16,28 @@ import Header from "../components/Header";
 function routes() {
 
   const {isLogged} = useContext(AppContext);
+  const [localStorageID, setLocalStorageID] = useState<string | null>("");
 
-  console.log(`esta logado: ${isLogged}`)
+  useEffect(() => {
+    (async function() {
+      setLocalStorageID(localStorage.getItem("user"))
+    })()
+  }, [])
 
   return (
     <BrowserRouter>
           {
-            isLogged && <Header/> 
+            isLogged || localStorageID && <Header/> 
           }
           <Routes>
-              <Route path="/signIn" element={<SignIn/>}/>
-              <Route path="/signUp" element={<SignUp/>} />
+              <Route path="/signIn" element={!localStorageID ? <SignIn/> : <Navigate to={"/jobs"}/>}/>
+              <Route path="/signUp" element={!localStorageID ? <SignUp/> : <Navigate to={"/jobs"}/>} />
 
-              <Route path="/jobs" element={isLogged ? <Jobs/> : <Navigate to={"/signIn"}/>}/>
-              <Route path="/job/:id" element={isLogged ? <Job/> : <Navigate to={"/signIn"}/>}/>
-              <Route path="/profile" element={isLogged ? <Profile/> : <Navigate to={"/signIn"}/>} />
+              <Route path="/jobs" element={isLogged || localStorageID ? <Jobs/> : <Navigate to={"/signIn"}/>}/>
+              <Route path="/job/:id" element={isLogged || localStorageID ? <Job/> : <Navigate to={"/signIn"}/>}/>
+              <Route path="/profile" element={isLogged || localStorageID ? <Profile/> : <Navigate to={"/signIn"}/>} />
 
-              <Route path="/publish-jobs" element={isLogged ? <PublishJob/> : <Navigate to={"/signIn"}/>} />
+              <Route path="/publish-jobs" element={isLogged || localStorageID ? <PublishJob/> : <Navigate to={"/signIn"}/>} />
           </Routes>
     </BrowserRouter>
   )

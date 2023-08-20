@@ -1,5 +1,5 @@
 import {db} from './firebase';
-import { collection, addDoc, getDocs, DocumentData, query, doc, getDoc} from "firebase/firestore";
+import { collection, addDoc, getDocs, DocumentData, query, doc, getDoc, limit, startAfter, orderBy} from "firebase/firestore";
 
 interface Job {
     title: string,
@@ -33,11 +33,11 @@ export const publishJob = async (datas: Job) => {
 }
 // ||
 
-export const getAllJobs = async (): Promise<JobsList[]> => {
+export const getAllJobs = async (limitPage: number, currentPage: number): Promise<JobsList[]> => {
     try {
         let jobsList: JobsList[] = [];
 
-        const q = query(collection(db, "jobs"));
+        const q = query(collection(db, "jobs"), limit(limitPage), orderBy("date"), startAfter((currentPage - 1) * limitPage));
 
         const querySnapshot = await getDocs(q);
 

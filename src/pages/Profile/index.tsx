@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Form from 'react-bootstrap/Form';
 import Button from '@mui/material/Button';
-import {editUser, getUserByID} from '../../firebase/user';
+import {editUser, getUserByID, getUserByIDInDatabase} from '../../firebase/user';
 import { AppContext } from '../../context/context';
 import { DocumentData } from 'firebase/firestore';
 
@@ -41,7 +41,9 @@ function Profile() {
     }, [])
 
     const get = async () => {
-        const userData = await getUserByID(`BD3kAmZryMGkQG5MKmDl`);
+        const idInStorage = localStorage.getItem("user");
+        const getUserId = await getUserByIDInDatabase(idInStorage);
+        const userData = await getUserByID(getUserId);
         setUser(userData);
     }
 

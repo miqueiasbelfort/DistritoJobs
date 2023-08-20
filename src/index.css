@@ -14,11 +14,34 @@
 }
 
 .btn-primary{
-    background-color: var(--primary);
-    border: none;
+    background-color: transparent;
+    border: 1px solid #ccc;
     transition: .3s;
-    border-radius: 1px;
+    border-radius: 5px;
+    color: var(--secondary);
 }
-.btn-primary:hover, .btn-primary:focus {
-    background-color: var(--primary-dark);
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary::backdrop {
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    --bs-btn-active-bg: #B30040;
+    --bs-btn-active-color: #fff;
+}
+.btn.show {
+    background-color: var(--primary);
+    color: #fff;
+    border: 1px solid var(--primary);
+}
+.dropdown-menu button:focus {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+.pagination-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 20px;
 }

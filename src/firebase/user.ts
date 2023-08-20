@@ -62,7 +62,7 @@ export const getUserByID = async (id: string) => {
     }
 }
 
-export const getUserByIDInDatabase = async (userID: string) => {
+export const getUserByIDInDatabase = async (userID: string | null): Promise<string> => {
     try {
 
         const q = query(
@@ -71,7 +71,7 @@ export const getUserByIDInDatabase = async (userID: string) => {
         );
         const querySnapshot = await getDocs(q);
 
-        let id;
+        let id: string = "";
 
         querySnapshot.forEach(doc => {
            id = doc.id;

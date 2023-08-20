@@ -20,7 +20,10 @@ export const createUser = async (email: string, password: string, secondPassword
 };
 
 export const loginUser = (email: string, password: string) => {
-    const user = signInWithEmailAndPassword(auth, email, password).then(userCredentials => userCredentials.user).catch(
+    const user = signInWithEmailAndPassword(auth, email, password).then(userCredentials => {
+        localStorage.setItem("user", userCredentials.user.uid);
+        return userCredentials.user;
+    }).catch(
         err => {
             const errorMessage = err.message;
             console.log(errorMessage);
