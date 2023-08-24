@@ -1,11 +1,8 @@
 import { useState, useContext, useEffect } from 'react';
 import styles from './Profile.module.css';
-import {GrFormEdit} from 'react-icons/gr'
-import Tooltip from '@mui/material/Tooltip';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
+import {GrFormEdit} from 'react-icons/gr';
 import Form from 'react-bootstrap/Form';
-import Button from '@mui/material/Button';
+import {Tooltip, Modal, Box, Button} from '@mui/material';
 import {editUser, getUserByID, getUserByIDInDatabase} from '../../firebase/user';
 import { AppContext } from '../../context/context';
 import { DocumentData } from 'firebase/firestore';

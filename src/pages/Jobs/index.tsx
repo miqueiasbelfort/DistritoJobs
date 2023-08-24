@@ -3,7 +3,7 @@ import styles from './Jobs.module.css'
 import Fillter from '../../components/Fillter';
 import Ads from '../../components/Ads';
 import JobCard from '../../components/JobCard';
-import {getAllJobs, JobsList} from '../../firebase/jobs';
+import {getAllJobs, JobsList, getAllJobsPrevius, getAllJobsNext} from '../../firebase/jobs';
 import {transformMoney} from '../../utils/money'
 import {Button, Paper, InputBase, IconButton} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -11,14 +11,29 @@ import SearchIcon from '@mui/icons-material/Search';
 function Jobs() {
 
   const [jobs, setJobs] = useState<JobsList[]>([]);
+  const [lastDocument, setLastDocument] = useState<any>();
+  const [firstDocument, setFirstDocument] = useState<any>();
 
   useEffect(() => {
     (async function(){
-      const jobsArray = await getAllJobs(10, 10);
-      setJobs(jobsArray);
+      const {jobsList, lastVisible, firstVisible} = await getAllJobs();
+      setLastDocument(lastVisible);
+      setFirstDocument(firstVisible);
+      setJobs(jobsList);
     })()
   }, [])
 
+  const handleShowNext = async () => {
+    const jobs = await getAllJobsNext(lastDocument);
+    setFirstDocument(jobs.firstVisible);
+    setJobs(jobs.jobsList);
+  }
+
+  const handleShowPreviues = async () => {
+    const jobs = await getAllJobsPrevius(firstDocument);
+    setJobs(jobs);
+  }
+  
   return (
     <div className={styles.container}>
 
@@ -60,8 +75,8 @@ function Jobs() {
       </div>
 
       <div className="pagination-container">
-        <Button variant="outlined" sx={{borderColor: "#131313", color: '#131313', '&:hover': { borderColor: '#B30040', color: "#B30040" }}}>Anterior</Button>
-        <Button variant="outlined" sx={{borderColor: "#131313", color: '#131313', '&:hover': { borderColor: '#B30040', color: "#B30040" }}}>Próximo</Button>
+        <Button onClick={handleShowPreviues} variant="outlined" sx={{borderColor: "#131313", color: '#131313', '&:hover': { borderColor: '#B30040', color: "#B30040" }}}>Anterior</Button>
+        <Button onClick={handleShowNext} variant="outlined" sx={{borderColor: "#131313", color: '#131313', '&:hover': { borderColor: '#B30040', color: "#B30040" }}}>Próximo</Button>
       </div>
 
     </div>

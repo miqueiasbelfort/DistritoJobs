@@ -20,7 +20,8 @@ function routes() {
 
   useEffect(() => {
     (async function() {
-      setLocalStorageID(localStorage.getItem("user"))
+      const user = localStorage.getItem("user");
+      setLocalStorageID(user);
     })()
   }, [])
 
@@ -37,7 +38,7 @@ function routes() {
               <Route path="/job/:id" element={isLogged || localStorageID ? <Job/> : <Navigate to={"/signIn"}/>}/>
               <Route path="/profile" element={isLogged || localStorageID ? <Profile/> : <Navigate to={"/signIn"}/>} />
 
-              <Route path="/publish-jobs" element={isLogged || localStorageID ? <PublishJob/> : <Navigate to={"/signIn"}/>} />
+              <Route path="/publish-jobs" element={true ? <PublishJob/> : <Navigate to={"/signIn"}/>} />
           </Routes>
     </BrowserRouter>
   )

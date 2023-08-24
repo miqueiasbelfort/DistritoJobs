@@ -1,5 +1,5 @@
 import {db} from './firebase';
-import { collection, addDoc, getDocs, DocumentData, query, doc, getDoc, limit, startAfter, orderBy} from "firebase/firestore";
+import { collection, addDoc, getDocs, DocumentData, query, doc, getDoc, limit, startAfter, orderBy, endBefore} from "firebase/firestore";
 
 interface Job {
     title: string,
@@ -33,20 +33,86 @@ export const publishJob = async (datas: Job) => {
 }
 // ||
 
-export const getAllJobs = async (limitPage: number, currentPage: number): Promise<JobsList[]> => {
+// export const getAllJobs = async (limitPage: number, lastDocument: any): Promise<JobsList[]> => {
+//     try {
+//         let jobsList: JobsList[] = [];
+
+//         const first = query(collection(db, "jobs"));
+//         const querySnapshot = await getDocs(first);
+//         const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+//         console.log(lastVisible);
+
+//         const next = query(collection(db, "jobs"), orderBy("datas"), startAfter(lastVisible), limit(1));
+//         const nextSnapshot = await getDocs(next);
+//         nextSnapshot.forEach((doc) => {
+//             jobsList.push({id: doc.id, jobs: doc.data()})
+//         });
+
+//         return jobsList;
+//     } catch (error) {
+//         console.log(error);
+//         throw error;
+//     }
+// }
+
+export const getAllJobs = async () => {
     try {
+        
         let jobsList: JobsList[] = [];
 
-        const q = query(collection(db, "jobs"), limit(limitPage), orderBy("date"), startAfter((currentPage - 1) * limitPage));
+        const q = query(collection(db, "jobs"), orderBy("datas"), limit(2))
 
         const querySnapshot = await getDocs(q);
 
+        const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+        const firstVisible = querySnapshot.docs[0];
+      
         querySnapshot.forEach((doc) => {
             jobsList.push({id: doc.id, jobs: doc.data()})
         });
-        return jobsList;
+
+        return {jobsList, lastVisible, firstVisible};
+
     } catch (error) {
         console.log(error);
+        throw error;
+    }
+}
+export const getAllJobsNext =async (lastDocument: any) => {
+    try {
+        let jobsList: JobsList[] = [];
+    
+        const last = query(collection(db, "jobs"), orderBy("datas"), limit(2), startAfter(lastDocument))
+        const querySnapshot = await getDocs(last);
+
+        // const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+        const firstVisible = querySnapshot.docs[0];
+    
+        querySnapshot.forEach((doc) => {
+            jobsList.push({id: doc.id, jobs: doc.data()})
+        });
+    
+        return {jobsList, firstVisible};
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+export const getAllJobsPrevius =async (firstDocument: any) => {
+    try {
+        let jobsList: JobsList[] = [];
+    
+        const first = query(collection(db, "jobs"), orderBy("datas"), limit(2), endBefore(firstDocument))
+        const querySnapshot = await getDocs(first);
+        
+        querySnapshot.forEach((doc) => {
+            jobsList.push({id: doc.id, jobs: doc.data()})
+        });
+        
+        return jobsList;
+
+    } catch (error) {
         throw error;
     }
 }
