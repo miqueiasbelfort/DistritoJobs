@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Petrona:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
 :root {
-    --primary: #B30040;
-    --primary-dark: #710028;
+    --primary: #01d508;
+    --primary-dark: #009a05;
     --secondary: #313131;
     --ligth: #e1e1e1;
 }
@@ -24,7 +24,7 @@
     background-color: transparent;
     border: 1px solid var(--primary);
     color: var(--primary);
-    --bs-btn-active-bg: #B30040;
+    --bs-btn-active-bg: #01d508;
     --bs-btn-active-color: #fff;
 }
 .btn.show {
@@ -37,11 +37,25 @@
     color: #fff;
 }
 
-.pagination-container {
+.pagination-container-center{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px 0;
     gap: 20px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+.pagination-container {
+    width: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+@media screen and (max-width: 768px){
+    .pagination-container {
+        width: 95%;
+    }
 }

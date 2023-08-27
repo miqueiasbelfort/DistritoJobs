@@ -1,8 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styles from './Header.module.css'
+import { Link } from 'react-router-dom';
+import styles from './Header.module.css';
 
-function Header() {
+function Header(isCompany: any, name: string) {
+
   return (
     <nav className={styles.container}>
       <Link to={"/jobs"}>
@@ -10,7 +10,9 @@ function Header() {
       </Link>
       <ul className={styles.list}>
         <li>
-          <Link to={"/jobs"}>Vagas</Link>
+          {
+            isCompany ? <Link to={"/publish-jobs"}>Publicar Vagas</Link> : <Link to={"/jobs"}>Vagas</Link>
+          }
         </li>
         <li className={styles.linkWithImg}>
           <Link to={"/profile"}>Miqueias</Link>

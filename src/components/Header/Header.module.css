@@ -44,7 +44,22 @@
     .logo{
         width: 100px;
     }
+    .list{
+        gap: 10px;
+    }
+    .list li {
+        display: flex;
+        align-items: center;
+    }
     .list li a {
-        font-size: 1em;
+        font-size: .8em;
+    }
+    .linkWithImg{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .linkWithImg img {
+        width: 20px;
     }
 }

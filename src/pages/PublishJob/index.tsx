@@ -24,8 +24,7 @@ function PublishJob() {
   const [benefits, setBenefits] = useState("");
 
   const handlePublishJob = async () => {
-    const jobObject = { title, salary, contract, mainLang, time, companyAddress, descJob, activityJob, langsJob, benefits }
-    const job = await publishJob(jobObject);
+    const job = await publishJob({ title, salary, contract, mainLang, time, companyAddress, descJob, activityJob, langsJob, benefits });
     console.log(job?.id);
   }
 

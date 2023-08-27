@@ -1,5 +1,5 @@
 import {db} from './firebase';
-import { collection, addDoc, setDoc, doc, getDoc, getDocs, query, where, DocumentData } from "firebase/firestore";
+import { collection, addDoc, updateDoc , doc, getDoc, getDocs, query, where } from "firebase/firestore";
 
 
 export const addUserInDataBase = async (email: string, user: string, isCompany: boolean) => {
@@ -19,21 +19,15 @@ export const addUserInDataBase = async (email: string, user: string, isCompany: 
 }
 
 interface Props {
-    email: string,
-    userID: string,
     fullName: string,
     aboutMe: string,
     course: string,
-    isCompany: boolean,
     university: string
 }
 
 export const editUser = async (data: Props, id: string) => {
     try {
-        await setDoc(doc(db, "users", id), {
-            email: data.email,
-            userID: data.userID,
-            isCompany: data.isCompany,
+        await updateDoc(doc(db, "users", id), {
             name: data.fullName,
             aboutMe: data.aboutMe,
             course: data.course,

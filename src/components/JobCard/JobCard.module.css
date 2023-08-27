@@ -4,34 +4,45 @@
     gap: 10px;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 2px 0px #919191;
-    height: 200px;
+    height: 100px;
+    max-width: 700px;
     padding: 10px;
     transition: .3s;
+    border-radius: 3px;
 }
 .container:hover {
     box-shadow: 1px 1px 2px 0px #676767;
 }
 .imgCompany{
-    width: 150px;
+    width: 60px;
     height: 100%;
     object-fit: cover;
+    border-radius: 3px;
 }
 
+.title{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+#title {
+    font-weight: bold;
+}
 .informationsContainer{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 5px;
     text-decoration: none;
     color: #000;
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 940px){
     .informationsContainer span {
         font-size: 12px;
     }
     .container {
         width: 95%;
-        height: 350px;
+        height: 125px;
     }
 }

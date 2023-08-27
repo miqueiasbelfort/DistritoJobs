@@ -6,13 +6,6 @@
     margin: 20px 0;
     gap: 20px;
 }
-
-.fillter{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .containerJobsAndAds{
     width: 100%;
     display: flex;
@@ -25,6 +18,14 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.modal{
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 @media screen and (max-width: 768px){

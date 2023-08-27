@@ -1,19 +1,19 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Profile.module.css';
 import {GrFormEdit} from 'react-icons/gr';
 import Form from 'react-bootstrap/Form';
 import {Tooltip, Modal, Box, Button} from '@mui/material';
-import {editUser, getUserByID, getUserByIDInDatabase} from '../../firebase/user';
-import { AppContext } from '../../context/context';
+import {editUser} from '../../firebase/user';
+// import { AppContext } from '../../context/context';
 import { DocumentData } from 'firebase/firestore';
+import {getUserByLocalstorage} from '../../utils/getUserByLocalstorage';
 
 
 function Profile() {
 
-    const {userId, email, isCompany, uniqUserId} = useContext(AppContext);
-
     const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false);
     const [user, setUser] = useState<DocumentData>({});
+    const [userID, setUserId] = useState<string>("");
     
     const [fullName, setFullName] = useState("");
     const [aboutMe, setAboutMe] = useState("");
@@ -22,15 +22,12 @@ function Profile() {
 
     const handleEditProfile = async () => {
         const objetctProfile = {
-            email,
-            userID: userId,
-            isCompany,
             fullName,
             aboutMe,
             course,
             university
         }
-        editUser(objetctProfile, uniqUserId);
+        editUser(objetctProfile, userID);
     }
 
     useEffect(() => {
@@ -38,10 +35,9 @@ function Profile() {
     }, [])
 
     const get = async () => {
-        const idInStorage = localStorage.getItem("user");
-        const getUserId = await getUserByIDInDatabase(idInStorage);
-        const userData = await getUserByID(getUserId);
-        setUser(userData);
+        const data = await getUserByLocalstorage();
+        setUser(data.user);
+        setUserId(data.id);
     }
 
   return (
@@ -58,9 +54,13 @@ function Profile() {
                         </Tooltip>
                     </div>
                     <span className={styles.desc}>{user?.aboutMe}</span>
-                    <div className={styles.containerButton}>
-                        <span>{user?.course} - {user?.university} - {user?.courseStage}</span>
-                    </div>
+                    {
+                        user?.isCompany == false && (
+                            <div className={styles.containerButton}>
+                                <span>{user?.course} - {user?.university} - {user?.courseStage}</span>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
 
@@ -72,7 +72,7 @@ function Profile() {
             <h2>Curriculo</h2>
 
             <div className={styles.viewPdfCurriculo}>
-            
+                    
             </div>
 
         </div>
@@ -96,18 +96,22 @@ function Profile() {
                     <Form.Label>Descrição sobre você</Form.Label>
                     <Form.Control as="textarea" rows={3}  style={{resize: 'none'}} onChange={e => setAboutMe(e.target.value)}/>
                 </Form.Group>
-                <Form.Select aria-label="Default select example" onChange={e => setCourse(e.target.value)}>
-                    <option>Qual curso esta fazendo?</option>
-                    <option value="Engenharia de Software">Engenharia de Software</option>
-                    <option value="Ciência da Computação">Ciência da Computação</option>
-                    <option value="ADS">ADS</option>
-                </Form.Select>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Nome da Universidade</Form.Label>
-                    <Form.Control type="email" placeholder="UNB" onChange={e => setUnivesity(e.target.value)}/>
-                </Form.Group>
-                <input className={styles.fileModal} type="file" id="btn-file" />
-                <label className={styles.btnFile} htmlFor="btn-file">Adicionar Curriculo</label>
+                {
+                    user?.isCompany == false && <>
+                        <Form.Select aria-label="Default select example" onChange={e => setCourse(e.target.value)}>
+                            <option>Qual curso esta fazendo?</option>
+                            <option value="Engenharia de Software">Engenharia de Software</option>
+                            <option value="Ciência da Computação">Ciência da Computação</option>
+                            <option value="ADS">ADS</option>
+                        </Form.Select>
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Nome da Universidade</Form.Label>
+                            <Form.Control type="email" placeholder="UNB" onChange={e => setUnivesity(e.target.value)}/>
+                        </Form.Group>
+                        <input className={styles.fileModal} type="file" id="btn-file" />
+                        <label className={styles.btnFile} htmlFor="btn-file">Adicionar Curriculo</label>
+                    </>
+                }
                 <Button variant="outlined" onClick={handleEditProfile}>Confirmar & Editar</Button>
             </Box>
         </Modal>
