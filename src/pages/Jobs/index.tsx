@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from './Jobs.module.css'
-import Fillter from '../../components/Fillter';
+// import Fillter from '../../components/Fillter';
 import Ads from '../../components/Ads';
 import JobCard from '../../components/JobCard';
 import {getAllJobs, JobsList, getAllJobsPrevius, getAllJobsNext, getAllJobsForSeach} from '../../firebase/jobs';
@@ -8,7 +8,7 @@ import {transformMoney} from '../../utils/money';
 import {Button, Paper, InputBase, IconButton} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
+import ModalSearchAndFillter from '../../components/ModalSearchAndFillter';
 
 function Jobs() {
 
@@ -56,9 +56,8 @@ function Jobs() {
     const jobs = await getAllJobsForSeach({title});
     setNewArrayJobs(jobs.filteredItems);
     setModalJobsWithFillter(true);
-    setTitle("");
   }
-  
+
   return (
     <div className={styles.container}>
 
@@ -79,9 +78,9 @@ function Jobs() {
             <SearchIcon/>
           </IconButton>
         </Paper>
-        <div className={styles.fillter}>
+        {/* <div className={styles.fillter}>
           <Fillter/>
-        </div>
+        </div> */}
       </div>
 
       <div className={styles.containerJobsAndAds}>
@@ -114,23 +113,10 @@ function Jobs() {
         onClose={() => setModalJobsWithFillter(!modalJobsWithFillter)}
         
       >
-        <Box sx={{position: 'absolute' as 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 750, height: 400, bgcolor: 'background.paper', border: '2px solid #000', boxShadow: 24, p: 4}}>
-          <div className={styles.modal}>
-            <div className={styles.jobsCards}>
-              {
-                newArrayJobs.map(item => (
-                  <JobCard
-                    id={item.id}
-                    title={item.jobs?.title}
-                    details={item.jobs?.descJob}
-                    desc={`${item.jobs?.time} / Salário: R$ ${transformMoney(item.jobs?.salary)} / ${item.jobs?.contract}`}
-                    key={item.id}
-                  />
-                ))
-              }
-            </div>
-          </div>
-        </Box>
+        <ModalSearchAndFillter
+          JobsList={newArrayJobs}
+          search={title}
+        />
       </Modal>
 
     </div>

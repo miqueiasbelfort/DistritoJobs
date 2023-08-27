@@ -11,7 +11,7 @@ import {getUserByLocalstorage} from '../../utils/getUserByLocalstorage';
 
 function Profile() {
 
-    const [ openEditProfileModal, setOpenEditProfileModal ] = useState(false);
+    const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
     const [user, setUser] = useState<DocumentData>({});
     const [userID, setUserId] = useState<string>("");
     
@@ -38,6 +38,8 @@ function Profile() {
         const data = await getUserByLocalstorage();
         setUser(data.user);
         setUserId(data.id);
+        setAboutMe(data.user.aboutMe);
+        setFullName(data.user.name);
     }
 
   return (
@@ -69,7 +71,7 @@ function Profile() {
         <hr />
         
         <div className={styles.container}>
-            <h2>Curriculo</h2>
+            <h2>{user?.isCompany ? "Vagas e Concorrentes" : "Curriculo"}</h2>
 
             <div className={styles.viewPdfCurriculo}>
                     
@@ -87,14 +89,14 @@ function Profile() {
         >
             <Box sx={{width: '500px', backgroundColor: '#fff', padding: '10px', display: 'flex', flexDirection: 'column', gap: '15px'}}>
                 <input className={styles.fileModal} type="file" id="btn-file" />
-                <label className={styles.btnFile} htmlFor="btn-file">Adicionar Foto de Perfil</label>
+                <label className={styles.btnFile} htmlFor="btn-file">Adicionar Foto</label>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Nome Completo</Form.Label>
-                    <Form.Control type="email" placeholder="Anna Catarina" onChange={e => setFullName(e.target.value)}/>
+                    <Form.Label>{user?.isCompany ? "Nome da Empresa" : "Nome Completo"}</Form.Label>
+                    <Form.Control value={fullName} type="email" placeholder={user?.isCompany ? "Tech JJobs" : "Anna Catariana"} onChange={e => setFullName(e.target.value)}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                    <Form.Label>Descrição sobre você</Form.Label>
-                    <Form.Control as="textarea" rows={3}  style={{resize: 'none'}} onChange={e => setAboutMe(e.target.value)}/>
+                    <Form.Label>Apresentação</Form.Label>
+                    <Form.Control as="textarea" rows={3}  style={{resize: 'none'}} onChange={e => setAboutMe(e.target.value)} value={aboutMe}/>
                 </Form.Group>
                 {
                     user?.isCompany == false && <>

@@ -19,7 +19,6 @@ function Job() {
             setLangs(objectJob.langsJob);
             setSalary(objectJob.salary);
             setJob(objectJob);
-            console.log(objectJob);
         })()
     }, [])
 

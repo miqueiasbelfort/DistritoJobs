@@ -1,0 +1,41 @@
+.jobsCards{
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 90%;
+    overflow-y: auto;
+    padding: 10px 10px;
+}
+
+.jobsCards::-webkit-scrollbar {
+    width: 8px;
+}
+  
+.jobsCards::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+  
+.jobsCards::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+}
+  
+
+.modal{
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@media screen and (max-width: 768px){
+    .jobsCards{
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+}
